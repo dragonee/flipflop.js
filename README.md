@@ -122,7 +122,7 @@ function.
 
 The optional parameter, `current_state` is a state name the flipflop
 object is currently in. You can use it to create FSMs that depend on the
-current state when choosing which state will be next.
+current state when choosing the next state.
 
 ### Initial data
 
