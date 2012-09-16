@@ -89,7 +89,7 @@ The `on()' function allows you to specify a callback that will be called
 when the flipflop will reach this state. Put here all changes that need
 to be done in this state.
 
-`this` for the callback function is an internal data objects that is
+`this` for the callback function is an internal data object that is
 used across all callback functions defined in a flipflop.
 
 ### Events
