@@ -79,6 +79,8 @@ flipflop('key') // returns a default flip-flop object
 New flipflop objects need to be configured. In most cases you need to
 provide four things to a flipflop object.
 
+### Callbacks
+
 ```javascript
 flipflop('key').on('state', function() {})
 ```
@@ -89,6 +91,8 @@ to be done in this state.
 
 `this` for the callback function is a data object where you can store
 any data you need to.
+
+### Events
 
 ```javascript
 flipflop('key').bind('event', function([data]) {})
@@ -102,6 +106,8 @@ The `trigger()` function triggers the event callback.
 
 Optionally you can specify the data parameter where you can push custom
 argument of any type to your callback.
+
+### Change function
 
 ```javascript
 flipflop('key').change(function([current_state]) {})
@@ -117,6 +123,8 @@ function.
 The optional parameter, `current_state` is a state name the flipflop
 object is currently in. You can use it to create FSMs that depend on the
 current state when choosing which state will be next.
+
+### Initial data
 
 ```javascript
 flipflop('key').init([data_object])
