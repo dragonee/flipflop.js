@@ -60,4 +60,93 @@ diagram:
            |              |
            `--------------'
 
+## Installation and configuration
+
+To install flipflop.js just include it in your code.
+
+After that, you will have access to the `flipflop()` function. This
+function is the only reserved keyword by flipflop.js in the global
+space.
+
+To get a flipflop, call this function with a `key` parameter - it will
+return an existing flipflop object or create it for you if it does not
+exist.
+
+```javascript
+flipflop('key') // returns a default flip-flop object
+```
+
+New flipflop objects need to be configured. In most cases you need to
+provide four things to a flipflop object.
+
+```javascript
+flipflop('key').on('state', function() {})
+```
+
+The `on()' function allows you to specify a callback that will be called
+when the flipflop will reach this state. Put here all changes that need
+to be done in this state.
+
+`this` for the callback function is a data object where you can store
+any data you need to.
+
+```javascript
+flipflop('key').bind('event', function([data]) {})
+flipflop('key').trigger('event'[, data])
+```
+
+The `bind()` function binds an event to the flipflop object. In this
+function you change the `this` data object in any fashion.
+
+The `trigger()` function triggers the event callback.
+
+Optionally you can specify the data parameter where you can push custom
+argument of any type to your callback.
+
+```javascript
+flipflop('key').change(function([current_state]) {})
+```
+
+The `change()` function is called after every `trigger()` operation.
+This function inspects the `this` data object and returns a string that
+describes the state. If the state differs from the current
+state, the callback defined by the `on()` function will be called. If
+there is no callback for the new state, flipflop won't call any
+function.
+
+The optional parameter, `current_state` is a state name the flipflop
+object is currently in. You can use it to create FSMs that depend on the
+current state when choosing which state will be next.
+
+```javascript
+flipflop('key').init([data_object])
+```
+
+After setting all callbacks and the change function, call `init()` to
+set the initial state of the flipflop. The optional `data_object` is
+used to populate internal data object with initial values. After that,
+it calls the `change()` function, sets the state and calls related
+`on()` callback function.
+
+You can call .init() any times you want, especially when reloading data
+because of an exception or other condition in your underlying logic.
+
+## Other functions
+
+```javascript
+flipflop('key').reject_events()
+flipflop('key').accept_events()
+```
+
+If you need to temporarily drop all events passed to the flipflop, use
+these two functions. This function affects only the `trigger()`
+function, so the `init()` function can still update the state.
+
+It comes in handy in time when your initialization logic triggers many
+events and you don't want your GUI to recompute data every time a item
+is added to the datastore.
+
+Remember to re`init()` your flipflop after you start accepting events,
+because the flipflop can have outdated information stored inside. 
+
 <!-- vim: set tw=72: -->
